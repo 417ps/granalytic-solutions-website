@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granalytic Solutions Ltd. - Project Controls & Infrastructure Management</title>
+    <style>
+        /* Professional Government Contractor Color Scheme */
+        :root {
+            --primary-navy: #1e3a5f;
+            --secondary-blue: #2e5a8a;
+            --accent-gold: #d4af37;
+            --accent-gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --border-color: #dee2e6;
+            --success-green: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-navy);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo-subtitle {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background-color: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent-gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Expertise Section */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .expertise-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: transform 0.3s ease;
+            border-left: 5px solid var(--accent-gold);
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .expertise-card h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .expertise-card .highlight {
+            background-color: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* Major Projects Section */
+        .projects-section {
+            background-color: var(--light-gray);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-value {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--success-green);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .project-card h4 {
+            color: var(--primary-navy);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-right: 100px;
+        }
+
+        .project-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-tag {
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Leadership Section */
+        .leadership-section {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+        }
+
+        .leadership-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .leadership-profile {
+            text-align: center;
+        }
+
+        .leadership-profile img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--accent-gold);
+        }
+
+        .leadership-profile h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+
+        .leadership-profile .title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .credential {
+            background-color: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .leadership-text h4 {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .leadership-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Sectors Section */
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .sector-card {
+            background: var(--primary-navy);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sector-card:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-3px);
+        }
+
+        .sector-icon {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .sector-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--light-gray);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h4 {
+            color: var(--primary-navy);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item .icon {
+            color: var(--accent-gold);
+            margin-right: 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            min-width: 80px;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .leadership-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid,
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                Granalytic Solutions Ltd.
+                <div class="logo-subtitle">Project Controls & Infrastructure Management</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <h1>Project Controls Excellence</h1>
+            <p class="subtitle">Federal • Municipal • Private Sector Infrastructure</p>
+            <p>Leading project controls consulting with over $413 million in projects currently under management. Specialized expertise in large-scale infrastructure programs from $100M to $1.7B across DOE, DOT, NASA, and municipal sectors.</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="number">$413M+</span>
+                    <span class="label">Under Management</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="number">27+</span>
+                    <span class="label">Years Experience</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="number">$1.7B</span>
+                    <span class="label">Largest Program</span>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button cta-primary">Request Consultation</a>
+                <a href="#projects" class="cta-button cta-secondary">View Major Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="section">
+        <div class="container">
+            <h2 class="section-title">Core Expertise</h2>
+            <p class="section-subtitle">Comprehensive project controls and infrastructure management services backed by decades of federal and municipal experience</p>
+            
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <div class="highlight">Project Controls Management</div>
+                    <h3>Advanced Scheduling & Cost Engineering</h3>
+                    <p>Master baseline schedule development, earned value management, resource loading, and cost performance analysis using Primavera P6, MS Project, and enterprise systems integration.</p>
+                </div>
+
+                <div class="expertise-card">
+                    <div class="highlight">Program Leadership</div>
+                    <h3>Large-Scale Infrastructure Programs</h3>
+                    <p>Owner's representative services for $100M-$1.7B programs including water systems, nuclear facilities, data centers, and power generation with multi-year execution phases.</p>
+                </div>
+
+                <div class="expertise-card">
+                    <div class="highlight">Risk & Financial Management</div>
+                    <h3>Cost Estimation & Risk Analysis</h3>
+                    <p>Conceptual through definitive cost estimates, life cycle cost analysis, Monte Carlo risk modeling, and variance analysis meeting DOE, NASA, and NIST requirements.</p>
+                </div>
+
+                <div class="expertise-card">
+                    <div class="highlight">Construction Management</div>
+                    <h3>Field Operations & Coordination</h3>
+                    <p>Construction coordination, RFI processing, change order management, and contractor oversight ensuring adherence to specifications and schedule milestones.</p>
+                </div>
+
+                <div class="expertise-card">
+                    <div class="highlight">Systems Integration</div>
+                    <h3>PMIS Implementation & Training</h3>
+                    <p>Project Management Information Systems deployment, enterprise software integration, process standardization, and staff training across organizational units.</p>
+                </div>
+
+                <div class="expertise-card">
+                    <div class="highlight">Contract Administration</div>
+                    <h3>Procurement & Vendor Management</h3>
+                    <p>Contract packaging, vendor evaluation, procurement support, and performance monitoring with proven track record in complex multi-contractor environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Major Projects Section -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <h2 class="section-title">Major Infrastructure Programs</h2>
+            <p class="section-subtitle">Proven delivery of complex infrastructure projects across federal, municipal, and private sectors</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-value">$1.7B</div>
+                    <h4>Alternative Water Supply Program - Greater Chicago</h4>
+                    <p>Owner's Senior Program Controls Lead for transmission lines, underwater tunnels, pump stations, and storage tanks serving 8 municipalities. Led schedule management and cost controls for complex multi-phase delivery.</p>
+                    <div class="project-details">
+                        <span class="project-tag">Water Infrastructure</span>
+                        <span class="project-tag">Municipal</span>
+                        <span class="project-tag">Multi-Phase</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-value">$841M</div>
+                    <h4>Southern Delivery Water System Program</h4>
+                    <p>Program Controls Schedule Lead for 60 miles of piping, three pump stations, and water treatment plant. Managed 27 construction work packages and 92 vendors for on-time delivery.</p>
+                    <div class="project-details">
+                        <span class="project-tag">Water Systems</span>
+                        <span class="project-tag">Treatment Plant</span>
+                        <span class="project-tag">Multi-Contractor</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-value">$254M</div>
+                    <h4>Nuclear Material Safeguards & Security Upgrade</h4>
+                    <p>Project controls management for critical nuclear facility security enhancements at Los Alamos National Laboratory with stringent compliance and scheduling requirements.</p>
+                    <div class="project-details">
+                        <span class="project-tag">Nuclear Security</span>
+                        <span class="project-tag">DOE/LANL</span>
+                        <span class="project-tag">Phase II</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-value">$52M</div>
+                    <h4>Red Network Infrastructure Expansion</h4>
+                    <p>Master schedule development and cost controls for classified network installation including retrofit of existing assets and new construction across multiple facilities.</p>
+                    <div class="project-details">
+                        <span class="project-tag">IT Infrastructure</span>
+                        <span class="project-tag">Classified Systems</span>
+                        <span class="project-tag">Network Expansion</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-value">$50M</div>
+                    <h4>LANL Bypass Roads Project</h4>
+                    <p>Cost estimation and project controls for major transportation infrastructure supporting laboratory operations and regional traffic management.</p>
+                    <div class="project-details">
+                        <span class="project-tag">Transportation</span>
+                        <span class="project-tag">DOE</span>
+                        <span class="project-tag">Infrastructure</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-value">$48M</div>
+                    <h4>CEF Project - Critical Facilities</h4>
+                    <p>Advanced project controls and scheduling support for critical experimental facilities requiring precise coordination and specialized construction techniques.</p>
+                    <div class="project-details">
+                        <span class="project-tag">Experimental Facilities</span>
+                        <span class="project-tag">Specialized Construction</span>
+                        <span class="project-tag">Critical Infrastructure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section id="leadership" class="section leadership-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Leadership</h2>
+            <div class="leadership-content">
+                <div class="leadership-profile">
+                    <div style="width: 200px; height: 200px; border-radius: 50%; background: var(--accent-gold); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--primary-navy); border: 5px solid var(--accent-gold);">JG</div>
+                    <h3>Jarett Granich, PMP</h3>
+                    <p class="title">Principal & Founder</p>
+                    <div class="credentials">
+                        <span class="credential">PMP Certified</span>
+                        <span class="credential">27+ Years</span>
+                        <span class="credential">AACEI Member</span>
+                        <span class="credential">OSHA 30</span>
+                        <span class="credential">Georgia GC License</span>
+                    </div>
+                </div>
+                
+                <div class="leadership-text">
+                    <h4>Proven Leadership in Complex Infrastructure</h4>
+                    <p>With over 27 years of project management experience, Jarett Granich leads Granalytic Solutions Ltd. with unparalleled expertise in project controls, cost engineering, and large-scale infrastructure delivery.</p>
+                    <p>His experience spans the Department of Energy, Department of Transportation, NASA, and major municipal programs, establishing him as a trusted partner for mission-critical infrastructure projects requiring the highest levels of precision and reliability.</p>
+                    <p>Currently managing over $413 million in active projects, Jarett's leadership has consistently delivered complex programs on time and within budget, making Granalytic Solutions Ltd. the premier choice for infrastructure project controls.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sectors Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Sectors We Serve</h2>
+            <p class="section-subtitle">Specialized expertise across critical infrastructure sectors</p>
+            
+            <div class="sectors-grid">
+                <div class="sector-card">
+                    <div class="sector-icon">GOV</div>
+                    <h4>Federal Government</h4>
+                    <p>DOE, NASA, DOT</p>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon">MUN</div>
+                    <h4>Municipal Utilities</h4>
+                    <p>Water, Wastewater, Power</p>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon">NUC</div>
+                    <h4>Nuclear Facilities</h4>
+                    <p>Security, Safety, Operations</p>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon">DATA</div>
+                    <h4>Data Centers</h4>
+                    <p>Critical Infrastructure</p>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon">PWR</div>
+                    <h4>Power Generation</h4>
+                    <p>Turbine, Steam, Utilities</p>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon">TRANS</div>
+                    <h4>Transportation</h4>
+                    <p>Roads, Bridges, Infrastructure</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Ready to Partner With Us?</h2>
+            <p class="section-subtitle">Let's discuss how our project controls expertise can ensure your infrastructure program's success</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h4>Get Started Today</h4>
+                    <div class="contact-item">
+                        <span class="icon">EMAIL</span>
+                        <span>jjgranich@msn.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">PHONE</span>
+                        <span>(505) 490-7147</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">LOCATION</span>
+                        <span>Colorado Springs, CO</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="icon">SERVICE</span>
+                        <span>Serving Federal, Municipal & Private Sectors Nationwide</span>
+                    </div>
+                    
+                    <h4 style="margin-top: 2rem;">Core Values</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 0.5rem 0; color: var(--primary-navy); font-weight: 600;">• People</li>
+                        <li style="margin: 0.5rem 0; color: var(--primary-navy); font-weight: 600;">• Teamwork</li>
+                        <li style="margin: 0.5rem 0; color: var(--primary-navy); font-weight: 600;">• Quality</li>
+                        <li style="margin: 0.5rem 0; color: var(--primary-navy); font-weight: 600;">• Integrity</li>
+                        <li style="margin: 0.5rem 0; color: var(--primary-navy); font-weight: 600;">• Professional Knowledge</li>
+                    </ul>
+                </div>
+
+                <form class="contact-form">
+                    <h4 style="color: var(--primary-navy); margin-bottom: 1.5rem;">Request Project Consultation</h4>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <input type="text" id="organization" name="organization" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sector">Project Sector</label>
+                        <select id="sector" name="sector" required>
+                            <option value="">Select Sector</option>
+                            <option value="federal">Federal Government (DOE, NASA, DOT)</option>
+                            <option value="municipal">Municipal/State</option>
+                            <option value="private">Private Sector</option>
+                            <option value="nuclear">Nuclear Facilities</option>
+                            <option value="water">Water/Wastewater</option>
+                            <option value="power">Power Generation</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="other">Other Infrastructure</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget">Estimated Project Value</label>
+                        <select id="budget" name="budget">
+                            <option value="">Select Range</option>
+                            <option value="under-10m">Under $10M</option>
+                            <option value="10-50m">$10M - $50M</option>
+                            <option value="50-100m">$50M - $100M</option>
+                            <option value="100-500m">$100M - $500M</option>
+                            <option value="over-500m">Over $500M</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Project Details & Requirements</label>
+                        <textarea id="message" name="message" placeholder="Describe your project scope, timeline, and specific project controls needs..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Request Consultation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Granalytic Solutions Ltd. All rights reserved.</p>
+            <p>Project Controls • Infrastructure Management • Federal & Municipal Expertise</p>
+            <p>Founded 2017 | PMP Certified | $413M+ Under Management</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handler
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your inquiry. Jarett will contact you within 24 hours to discuss your project controls requirements.');
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.backgroundColor = 'rgba(30, 58, 95, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.backgroundColor = 'var(--primary-navy)';
+                navbar.style.backdropFilter = 'none';
+            }
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.expertise-card, .project-card, .sector-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
